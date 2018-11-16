@@ -319,7 +319,7 @@ func testInfixExpression(t *testing.T, exp ast.Expression, left interface{}, ope
 	return true
 }
 
-func TestPperatorPrecedenceParsing(t *testing.T) {
+func TestOperatorPrecedenceParsing(t *testing.T) {
 	tests:= []struct {
 		input string 
 		expected string
@@ -388,7 +388,26 @@ func TestPperatorPrecedenceParsing(t *testing.T) {
 			"3 < 5 == true",
 			"((3 < 5) == true)",
 		},
-
+		{
+			"1 + (2 + 3) + 4",
+			"((1 + (2 + 3)) + 4)",
+		},
+		{
+			"(5 + 5) * 2",
+			"((5 + 5) * 2)",
+		},
+		{
+			"2 / (5 + 5)",
+			"(2 / (5 + 5))",
+		},
+		{
+			"-(5 + 5)",
+			"(-(5 + 5))",
+		},
+		{
+			"!(true == true)",
+			"(!(true == true))",
+		},
 	}
 	for _, tt := range tests {
 		l := lexer.New(tt.input)
