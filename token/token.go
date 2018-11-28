@@ -12,6 +12,7 @@ const (
 
 	IDENT = "IDENT"
 	INT = "INT"
+	STRING = "STRING"
 
 	ASSIGN = "="
 	PLUS = "+"
@@ -40,8 +41,7 @@ const (
 	IF = "IF"
 	ELSE = "ELSE"
 	RETURN = "RETURN"
-)
-
+) 
 var keywords = map[string]TokenType{
 	"fn": FUNCTION,
 	"let":LET,
