@@ -276,6 +276,20 @@ func evalStringinfixExpression(operator string, left , right object.Object) obje
 	if operator != "+" {
 		return newError("unknown operator: %s %s %s",left.Type(), operator, right.Type())
 	}
+	switch operator {
+	case "+":
+		leftval := left.(*object.String).Value
+		rightval := right.(*object.String).Value
+		return &object.String{Value: leftval + rightval}
+	case "!=":
+		leftval := left.(*object.String).Value
+		rightval := right.(*object.String).Value
+		return &object.Boolean{Value: leftval == rightval}
+	case "==":
+		leftval := left.(*object.String).Value
+		rightval := right.(*object.String).Value
+		return &object.Boolean{Value: leftval == rightval}
+	}
 	leftval := left.(*object.String).Value
 	rightval := right.(*object.String).Value
 	return &object.String{Value: leftval + rightval}

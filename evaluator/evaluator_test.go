@@ -255,6 +255,18 @@ func TestStringConcatenation(t *testing.T) {
 		t.Errorf("string has wrong value. got=%q",str.Value)
 	}
 }
+func TestStringComparision(t *testing.T) {
+	input :=`"Hello" == "World!"`
+		evaluated := testEval(input)
+		str, ok := evaluated.(*object.Boolean)
+		if !ok {
+			t.Fatalf("object is not String. got=%T (%+v)", evaluated, evaluated)
+		}
+		if str.Value != false{
+			t.Errorf("string has wrong value. got=%t",str.Value)
+		}
+	
+}
 
 func testEval(input string ) object.Object {
 	l := lexer.New(input)
