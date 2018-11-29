@@ -155,6 +155,8 @@ func evalInfixExpression(operator string, left, right object.Object) object.Obje
 		return nativeBoolToBoolewnObject(left != right)
 	case left.Type() != right.Type():
 		return newError("type mismatch: %s %s %s",left.Type(),operator,right.Type())
+	case left.Type() == object.STRING_OBJ && right.Type() == object.STRING_OBJ:
+		return evalStringinfixExpression(operator, left, right)
 	default:
 		return newError("unknown operator: %s %s %s",left.Type(),operator,right.Type())
 	}
@@ -268,4 +270,13 @@ func unrwrapReturnValue(obj object.Object) object.Object {
 		return returnValue.Value
 	}
 	return obj
+}
+
+func evalStringinfixExpression(operator string, left , right object.Object) object.Object {
+	if operator != "+" {
+		return newError("unknown operator: %s %s %s",left.Type(), operator, right.Type())
+	}
+	leftval := left.(*object.String).Value
+	rightval := right.(*object.String).Value
+	return &object.String{Value: leftval + rightval}
 }
