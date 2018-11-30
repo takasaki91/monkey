@@ -26,6 +26,7 @@ if ( 5 < 10 ) {
 10 == 10;
 10 != 0;
 "foobar"
+[1,2];
 `
 	tests := []struct {
 		expectedType    token.TokenType
@@ -37,7 +38,7 @@ if ( 5 < 10 ) {
 		{token.INT, "5"},
 		{token.SEMICOLON, ";"},
 		{token.LET, "let"},
-		{token.IDENT,  "ten"},
+		{token.IDENT, "ten"},
 		{token.ASSIGN, "="},
 		{token.INT, "10"},
 		{token.SEMICOLON, ";"},
@@ -45,7 +46,7 @@ if ( 5 < 10 ) {
 		{token.IDENT, "add"},
 		{token.ASSIGN, "="},
 		{token.FUNCTION, "fn"},
-		{token.LPAREN,  "("},
+		{token.LPAREN, "("},
 		{token.IDENT, "x"},
 		{token.COMMA, ","},
 		{token.IDENT, "y"},
@@ -53,7 +54,7 @@ if ( 5 < 10 ) {
 		{token.LBRACE, "{"},
 		{token.IDENT, "x"},
 		{token.PLUS, "+"},
-		{token.IDENT,  "y"},
+		{token.IDENT, "y"},
 		{token.SEMICOLON, ";"},
 		{token.RBRACE, "}"},
 		{token.SEMICOLON, ";"},
@@ -63,37 +64,37 @@ if ( 5 < 10 ) {
 		{token.IDENT, "add"},
 		{token.LPAREN, "("},
 		{token.IDENT, "five"},
-		{token.COMMA,  ","},
+		{token.COMMA, ","},
 		{token.IDENT, "ten"},
 		{token.RPAREN, ")"},
 		{token.SEMICOLON, ";"},
 		{token.BANG, "!"},
-		{token.MINUS,"-"},
-		{token.SLASH,"/"},
-		{token.ASTERISK,"*"},
-		{token.INT,"5"},
+		{token.MINUS, "-"},
+		{token.SLASH, "/"},
+		{token.ASTERISK, "*"},
+		{token.INT, "5"},
 		{token.SEMICOLON, ";"},
-		{token.INT,"5"},
-		{token.LT,"<"},
+		{token.INT, "5"},
+		{token.LT, "<"},
 		{token.INT, "10"},
-		{token.GT,">"},
-		{token.INT,"5"},
+		{token.GT, ">"},
+		{token.INT, "5"},
 		{token.SEMICOLON, ";"},
 		{token.IF, "if"},
 		{token.LPAREN, "("},
-		{token.INT,"5"},
-		{token.LT,"<"},
+		{token.INT, "5"},
+		{token.LT, "<"},
 		{token.INT, "10"},
 		{token.RPAREN, ")"},
 		{token.LBRACE, "{"},
 		{token.RETURN, "return"},
-		{token.TRUE,"true"},
+		{token.TRUE, "true"},
 		{token.SEMICOLON, ";"},
 		{token.RBRACE, "}"},
 		{token.ELSE, "else"},
 		{token.LBRACE, "{"},
 		{token.RETURN, "return"},
-		{token.FALSE,"false"},
+		{token.FALSE, "false"},
 		{token.SEMICOLON, ";"},
 		{token.RBRACE, "}"},
 		{token.INT, "10"},
@@ -101,22 +102,28 @@ if ( 5 < 10 ) {
 		{token.INT, "10"},
 		{token.SEMICOLON, ";"},
 		{token.INT, "10"},
-		{token.NOT_EQ,"!="},
+		{token.NOT_EQ, "!="},
 		{token.INT, "0"},
 		{token.SEMICOLON, ";"},
-		{token.STRING,"foobar"},
+		{token.STRING, "foobar"},
+		{token.LBRACKET, "["},
+		{token.INT, "1"},
+		{token.COMMA, ","},
+		{token.INT, "2"},
+		{token.RBRACKET, "]"},
+		{token.SEMICOLON, ";"},
 		{token.EOF, ""},
 	}
-	l:= New(input)
+	l := New(input)
 
-	for i,tt := range tests {
+	for i, tt := range tests {
 		tok := l.NextToken()
 
 		if tok.Type != tt.expectedType {
-			t.Fatalf("tests[%d] - tyoentype wrong. expected=%q, got=%q",i, tt.expectedType, tok.Type)
+			t.Fatalf("tests[%d] - tyoentype wrong. expected=%q, got=%q", i, tt.expectedType, tok.Type)
 		}
 		if tok.Literal != tt.expectedLiteral {
-			t.Fatalf("tests[%d] ,expected = %q, got = %q",i, tt.expectedLiteral, tok.Literal)
+			t.Fatalf("tests[%d] ,expected = %q, got = %q", i, tt.expectedLiteral, tok.Literal)
 		}
 	}
 }
