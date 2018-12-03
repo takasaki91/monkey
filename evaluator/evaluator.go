@@ -308,11 +308,11 @@ func evalStringinfixExpression(operator string, left, right object.Object) objec
 	case "!=":
 		leftval := left.(*object.String).Value
 		rightval := right.(*object.String).Value
-		return &object.Boolean{Value: leftval == rightval}
+		return nativeBoolToBoolewnObject(leftval == rightval)
 	case "==":
 		leftval := left.(*object.String).Value
 		rightval := right.(*object.String).Value
-		return &object.Boolean{Value: leftval == rightval}
+		return nativeBoolToBoolewnObject(leftval == rightval)
 	}
 	leftval := left.(*object.String).Value
 	rightval := right.(*object.String).Value
